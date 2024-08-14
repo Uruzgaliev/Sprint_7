@@ -1,3 +1,5 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.example.orders.Order;
 import org.example.orders.OrderApi;
@@ -42,6 +44,8 @@ public class OrderCreateTest {
 
        // Создаем заказ
         @Test
+        @DisplayName("Создание заказа с разными цветами")
+        @Description("Проверка, что можно создать заказ с переданными наборами цветов")
         public void testOrderCreation () {
             ValidatableResponse createResponse = orderApi.createOrder(order);
             int createStatusCode = createResponse.extract().statusCode();

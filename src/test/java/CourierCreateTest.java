@@ -1,3 +1,5 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.example.Courier;
 import org.example.CourierClient;
@@ -25,8 +27,9 @@ public class CourierCreateTest {
     }
 
     @Test
+    @DisplayName("Успешное создание курьера")
+    @Description("Создание курьера со всеми заполненными полями")
     public void courierCanBeCreated() {
-        // Создаем курьера со всеми параметрами в БД
         Courier courier = new Courier("Simon865", "1234567891", "saske321");
         ValidatableResponse createResponse = courierClient.create(courier);
         int createStatusCode = createResponse.extract().statusCode();
@@ -43,6 +46,8 @@ public class CourierCreateTest {
     }
 
     @Test
+    @DisplayName("Создание курьера с данными уже существующими в БД")
+    @Description("Создание второго курьера со существующими данными - ожидание 409 ошибки")
     public void cannotCreateDuplicateCouriers() {
 
         Courier courier = new Courier("Simon865", "1234567891", "saske321");
@@ -68,6 +73,8 @@ public class CourierCreateTest {
     }
 
         @Test
+        @DisplayName("Создание курьера без логина")
+        @Description("Создание курьера без логина - курьер не создается, ожидание 400 ошибки")
     public void courierNotCreatedWithoutLogin() {
         Courier courier = new Courier("", "1234567891", "saske321");
         ValidatableResponse createResponse = courierClient.createWithoutLogin(courier, "1234567891", "saske321");
@@ -78,6 +85,8 @@ public class CourierCreateTest {
     }
 
     @Test
+    @DisplayName("Создание курьера без пароля")
+    @Description("Создание курьера без пароля - курьер не создается, ожидание 400 ошибки")
     public void courierNotCreatedWithoutPassword() {
         Courier courier = new Courier("Simon865", "", "saske321");
 
@@ -87,7 +96,6 @@ public class CourierCreateTest {
         String errorMessage = createResponse.extract().path("message");
         assertEquals(errorMessage, "Недостаточно данных для создания учетной записи");
     }
-
 
 }
 

@@ -1,5 +1,6 @@
 package org.example;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 import static io.restassured.RestAssured.given;
@@ -10,7 +11,7 @@ public class CourierClient extends RestClient {
     public static final String COURIER_LOGIN = "/api/v1/courier/login";
     public static final String COURIER_DELETE = "/api/v1/courier/{id}";
 
-        // Создание курьера
+    @Step("Создание курьера")
     public ValidatableResponse create(Courier courier) {
         return given()
                 .spec(getBaseSpec())
@@ -20,7 +21,7 @@ public class CourierClient extends RestClient {
                 .then();
     }
 
-    // Создание курьера с пустой строкой в поле логин
+    @Step("Создание курьера с пустой строкой в поле логин")
     public ValidatableResponse createWithoutLogin(Courier courier, String password, String firstName) {
         return given()
                 .spec(getBaseSpec())
@@ -33,7 +34,7 @@ public class CourierClient extends RestClient {
                 .then();
     }
 
-    // Создание курьера с пустой строкой в поле пароль
+    @Step("Создание курьера с пустой строкой в поле пароль")
     public ValidatableResponse createWithoutPassword(Courier courier, String login, String firstName) {
         return given()
                 .spec(getBaseSpec())
@@ -46,7 +47,7 @@ public class CourierClient extends RestClient {
                 .then();
     }
 
-    // Авторизация курьера и получение ID курьера при авторизации
+    @Step("Авторизация курьера и получение ID курьера при авторизации")
     public ValidatableResponse login(CourierCredentials courierCredentials) {
         return given()
                 .spec(getBaseSpec())
@@ -57,17 +58,15 @@ public class CourierClient extends RestClient {
 
     }
 
-    // Удаление курьера по ID
     public void delete(int courierId) {
         given()
                 .spec(getBaseSpec())
                 .when()
                 .delete(COURIER_DELETE, courierId)
                 .then();
-
     }
 
-    // Проверка создания двух одинаковых курьеров
+    @Step("Проверка создания двух одинаковых курьеров")
     public ValidatableResponse createDuplicateCourier(Courier courier, String login, String password, String firstName)  {
         return given()
                 .spec(getBaseSpec())

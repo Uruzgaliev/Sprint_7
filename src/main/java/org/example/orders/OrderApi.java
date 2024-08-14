@@ -1,5 +1,6 @@
 package org.example.orders;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 import static io.restassured.RestAssured.given;
@@ -12,7 +13,7 @@ public class OrderApi extends RestOrder {
 
 
 
-// Создание заказа
+    @Step("Создание заказа")
     public ValidatableResponse createOrder(Order order) {
         return given()
                 .spec(getBaseSpecification())
@@ -22,7 +23,7 @@ public class OrderApi extends RestOrder {
                 .then();
     }
 
-    // Отмена заказа
+    @Step("Отмена заказа")
     public void cancelOrder(OrderCancel orderCancel) {
         given()
                 .spec(getBaseSpecification())
@@ -32,22 +33,12 @@ public class OrderApi extends RestOrder {
                 .then();
     }
 
-    // Получение списка заказов
+    @Step("Получение списка заказов")
     public ValidatableResponse getOrdersList() {
         return given()
                 .spec(getBaseSpecification())
                 .when()
                 .get(ORDER_PATH)
                 .then();
-
-
-
     }
-
-
-
-
-
-
-
 }
