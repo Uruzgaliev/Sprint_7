@@ -9,6 +9,7 @@ import static io.restassured.RestAssured.given;
 public class OrderApi extends RestOrder {
 
     public static final String ORDER_PATH = "api/v1/orders";
+
     public static final String CANSEL_ORDER_PATH = "/api/v1/orders/cancel";
 
 
